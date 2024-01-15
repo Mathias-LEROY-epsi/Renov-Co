@@ -26,13 +26,13 @@ Nous souhaitons développer une application mobile qui permet de faire de la ré
 - [ ] Avis clients
 - [ ] IA pour le chat de questions/réponses
 - [ ] Liste d'artisans à contacter
-- [] Report de bug / Gestion des logs
+- [ ] Report de bug / Gestion des logs
 
 ## Ameliorations possibles
 
-- suggestions avec localisation / orientation soleil / météo locale...
-- assurance possible avec les différents matériaux (style architectures voisines)
-- amélioration de l’impact écologique via des installations (panneaux solaires)
+- Suggestions avec localisation / orientation soleil / météo locale...
+- Assurance possible avec les différents matériaux (style architectures voisines)
+- Amélioration de l’impact écologique via des installations (panneaux solaires)
 
 ## Lancer l'application mobile
 
