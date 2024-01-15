@@ -33,3 +33,9 @@ Nous souhaitons développer une application mobile qui permet de faire de la ré
 - suggestions avec localisation / orientation soleil / météo locale...
 - assurance possible avec les différents matériaux (style architectures voisines)
 - amélioration de l’impact écologique via des installations (panneaux solaires)
+
+## Lancer l'application mobile
+
+Dans le dossier Front, taper les commandes "npm i" puis "npm run start"
+- Si votre téléphone est un Android, télécharger l'application mobile "Expo" et scanner le QR code ou entrer l'URL manuellement
+- Si votre téléphone est un iOS, scanner le QR code avec l'application camera
