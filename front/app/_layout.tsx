@@ -2,6 +2,10 @@ import { Stack, Link } from "expo-router";
 import { Image, Pressable } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
+export const unstable_settings = {
+  initialRouteName: "home",
+};
+
 const Layout = () => {
   return (
     <Stack>
