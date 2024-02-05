@@ -13,6 +13,7 @@ Nous souhaitons développer une application mobile qui permet de faire de la ré
 
 - [ ] Inscription / Authentification
 - [ ] Page d'accueil
+- [ ] Page du profil utilisateur
 - [ ] Page de détail d'un tutoriel
 - [ ] Chat en temps réel de questions/réponses
 - [ ] FAQ
@@ -36,6 +37,7 @@ Nous souhaitons développer une application mobile qui permet de faire de la ré
 
 ## Lancer l'application mobile
 
-Dans le dossier Front, taper les commandes "npm i" puis "npm run start"
+Dans le dossier Front, taper les commandes `npm i` puis `npm run start`
+
 - Si votre téléphone est un Android, télécharger l'application mobile "Expo" et scanner le QR code ou entrer l'URL manuellement
 - Si votre téléphone est un iOS, scanner le QR code avec l'application camera

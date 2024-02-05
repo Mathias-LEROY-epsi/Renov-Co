@@ -1,60 +1,42 @@
-import FontAwesome from "@expo/vector-icons/FontAwesome";
-import {Link, Tabs} from "expo-router";
-import {Pressable, useColorScheme} from "react-native";
+import { Tabs } from "expo-router";
+import Ionicons from "@expo/vector-icons/Ionicons";
 
-import Colors from "../../constants/Colors";
-
-/**
- * You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
- */
-function TabBarIcon(
-  props: Readonly<{
-    name: React.ComponentProps<typeof FontAwesome>["name"];
-    color: string;
-  }>,
-) {
-  return <FontAwesome size={28} {...props} />;
-}
-
-export default function TabLayout() {
-  const colorScheme = useColorScheme();
-
+const Layout = () => {
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? "light"].tint,
-        tabBarLabelStyle: {width: 50, marginBottom: 5},
-        tabBarStyle: {height: 50},
+        headerShown: false,
+        tabBarActiveTintColor: "green",
+        tabBarInactiveTintColor: "gray",
+        tabBarLabelStyle: {
+          fontSize: 12,
+          textTransform: "capitalize",
+          width: "100%",
+        },
       }}>
       <Tabs.Screen
-        name="index"
+        name="home"
         options={{
-          title: "Tab one",
-          tabBarIcon: ({color}) => <TabBarIcon name="code" color={color} />,
-          headerRight: () => (
-            <Link href="/modal" asChild>
-              <Pressable>
-                {({pressed}) => (
-                  <FontAwesome
-                    name="info-circle"
-                    size={25}
-                    color={Colors[colorScheme ?? "light"].text}
-                    style={{marginRight: 15, opacity: pressed ? 0.5 : 1}}
-                  />
-                )}
-              </Pressable>
-            </Link>
-          ),
+          title: "Home",
+          tabBarIcon: ({ focused }) => <Ionicons name="home" color={focused ? "green" : "black"} size={25} />,
         }}
       />
       <Tabs.Screen
-        name="two"
+        name="notifications"
         options={{
-          title: "Tab two",
-          headerShown: false,
-          tabBarIcon: ({color}) => <TabBarIcon name="code" color={color} />,
+          title: "Notifications",
+          tabBarIcon: ({ focused }) => <Ionicons name="notifications" color={focused ? "green" : "black"} size={25} />,
+        }}
+      />
+      <Tabs.Screen
+        name="(top-tabs)"
+        options={{
+          title: "Messages",
+          tabBarIcon: ({ focused }) => <Ionicons name="chatbubble" color={focused ? "green" : "black"} size={25} />,
         }}
       />
     </Tabs>
   );
-}
+};
+
+export default Layout;

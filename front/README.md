@@ -2,7 +2,7 @@
 
 <p align="center">
   <a href="https://expo.dev/">
-    <img alt="expo sdk" height="128" src="./assets/banner.png">
+    <img alt="expo sdk" height="128" src="./assets/images/logo-expo.webp">
     <h1 align="center">Expo</h1>
   </a>
 </p>
