@@ -1,41 +1,108 @@
-var MongoClient = require('mongodb').MongoClient;
+const express = require('express');
+const mongoose = require('mongoose');
 
-MongoClient.connect('mongodb://localhost:27017/Renov_&_Co', function(err, db) {
-  if (err) {
-    throw err;
+const app = express();
+const port = 3000;
+
+app.use(express.json());
+
+//Connexion à la bdd
+const dbUrl = 'mongodb://localhost:27017/Renov_&_Co';
+mongoose.connect(dbUrl, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => console.log('Connected to MongoDB'))
+  .catch((error) => console.error('MongoDB connection error:', error));
+
+//Table utilisateurs en bdd
+const Schema = mongoose.Schema;
+const userSchema = new Schema({
+  mail: {
+    type: String,
+    required: true
+  },
+  pseudo: {
+    type: String,
+    required: true
+  },
+  mdp: {
+    type: String,
+    required: true
   }
-  db.collection('Utilisateur').find().toArray(function(err, result) {
-    if (err) {
-      throw err;
+});
+
+const User = mongoose.model('utilisateurs', userSchema);
+
+//Création d'un utilisateur sans la route
+/*const newUser = new User({
+  mail: 'user1@gmail.com',
+  pseudo: 'Pseudo utilisateur 1',
+  mdp: 'P@ssw0rd'
+});
+
+newUser.save()
+  .then((post) => console.log('New user saved:', post))
+  .catch((error) => console.error('Error saving user:', error));*/
+
+// Route POST users
+app.post('/users', async (req, res) => {
+  try {
+    console.log(req.body);
+    const { mail, pseudo, mdp } = req.body;
+    const newUser = new User({ mail, pseudo, mdp });
+    const savedUser = await newUser.save();
+    res.json(savedUser);
+  } catch (error) {
+    res.status(500).json({ error: 'Error creating user' });
+  }
+});
+
+//Route GET all users
+app.get('/users', async (req, res) => {
+  try {
+    const users = await User.find();
+    res.json(users);
+  } catch (error) {
+    res.status(500).json({ error: 'Error retrieving users' });
+  }
+});
+
+//Route GET one user (id)
+app.get('/users/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    const user = await User.findById(id);
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
     }
-    console.log(result);
-  });
+    res.json(user);
+  } catch (error) {
+    res.status(500).json({ error: 'Error retrieving user' });
+  }
 });
 
-const express = require('express')
-const app = express()
-const port = 3000
-
-app.get('/', (req, res) => {
-  res.send('Hello World!')
-})
-
-app.get('/users', (req, res) => {
-    res.send('Hello World!')
-})
-
-app.post('/users', function (req, res) {
-    res.send('Got a POST request');
+// Route PUT user (id)
+app.put('/users/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { mail, pseudo, mdp } = req.body;
+    const updatedUser = await User.findByIdAndUpdate(id, { mail, pseudo, mdp }, { new: true });
+    res.json(updatedUser);
+  } catch (error) {
+    res.status(500).json({ error: 'Error updating user' });
+  }
 });
 
-app.put('/user/id', function (req, res) {
-    res.send('Got a PUT request at /user');
+// Route DELETE (id)
+app.delete('/users/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    await User.findByIdAndDelete(id);
+    res.json({ message: 'User deleted successfully' });
+  } catch (error) {
+    res.status(500).json({ error: 'Error deleting user' });
+  }
 });
 
-app.delete('/user/id', function (req, res) {
-    res.send('Got a DELETE request at /user');
-});
-
+// Start the server
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
-})
+  console.log(`Server running on http://localhost:${port}`);
+});
